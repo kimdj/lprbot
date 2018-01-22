@@ -59,6 +59,7 @@ function printSubroutine {
                     say ${chan} "$(ssh -oConnectTimeout=4 stargate /u/dkim/sandbox/scripts/printer-script.sh -u ${nick} fab5517bw1)"
                     say ${chan} "$(ssh -oConnectTimeout=4 stargate /u/dkim/sandbox/scripts/printer-script.sh -u ${nick} fab5517bw2)"
                     say ${chan} "$(ssh -oConnectTimeout=4 stargate /u/dkim/sandbox/scripts/printer-script.sh -u ${nick} fab5517clr1)"
+                    say ${chan} "$(ssh -oConnectTimeout=4 stargate /u/dkim/sandbox/scripts/printer-script.sh -u ${nick} fab25bw1)"
                     ;;
                 eb)
                     say ${chan} "$(ssh -oConnectTimeout=4 stargate /u/dkim/sandbox/scripts/printer-script.sh -u ${nick} eb325bw1)"
@@ -74,6 +75,7 @@ function printSubroutine {
                        [[ "${arg}" == "fab5517bw1" ]] ||
                        [[ "${arg}" == "fab5517bw2" ]] ||
                        [[ "${arg}" == "fab5517clr1" ]] ||
+                       [[ "${arg}" == "fab25bw1" ]] ||
                        [[ "${arg}" == "eb325bw1" ]] ||
                        [[ "${arg}" == "eb325bw2" ]] ||
                        [[ "${arg}" == "eb325clr1" ]] ||
@@ -100,7 +102,7 @@ function helpSubroutine {
 # List all the printers.
 
 function listSubroutine {
-    for printer in "-----------------------------------------------" "fab5517bw1    (Intel Lab/FAB MCECS General Lab)" "fab5517bw2    (Intel Lab/FAB MCECS General Lab)" "fab5517clr1   (Intel Lab/FAB MCECS General Lab)" "fab6001bw1    (Tektronix Lab)" "fab8201bw1    (Doghaus)" "fabc8802bw1   (Linux Lab)" "eb325bw1      (MCECS General Lab, West)" "eb325bw2      (MCECS General Lab, East)" "eb325clr1     (MCECS General Lab, West)" "eb420bw1      (MCAE Lab)" "eb420clr1     (MCAE Lab)" ; do
+    for printer in "-----------------------------------------------" "fab5517bw1    (Intel Lab/FAB MCECS General Lab)" "fab5517bw2    (Intel Lab/FAB MCECS General Lab)" "fab5517clr1   (Intel Lab/FAB MCECS General Lab)" "fab6001bw1    (Tektronix Lab)" "fab8201bw1    (Doghaus)" "fabc8802bw1   (Linux Lab)" "fab25bw1      (Power Lab)" "eb325bw1      (MCECS General Lab, West)" "eb325bw2      (MCECS General Lab, East)" "eb325clr1     (MCECS General Lab, West)" "eb420bw1      (MCAE Lab)" "eb420clr1     (MCAE Lab)" ; do
         say ${nick} ${printer}
     done
 }
