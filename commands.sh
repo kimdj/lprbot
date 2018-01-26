@@ -88,15 +88,13 @@ function printSubroutine {
                     ;;
             esac
         done
-
     fi
-
 }
 
 # This subroutine displays documentation for lprbot's functionalities.
 
 function helpSubroutine {
-    say ${chan} "usage: !print [-a | --all] [fab [eb]] [fab8802bw1 [eb325bw1 ...]] [-l | --list | list] [source]"
+    say ${chan} "usage: !print [-a | --all] [fab [eb]] [fab8802bw1 [eb325bw1 ...]] [-l | --list | list] [-j | --jobs | jobs] [source]"
 }
 
 # List all the printers.
@@ -105,6 +103,23 @@ function listSubroutine {
     for printer in "-----------------------------------------------" "fab5517bw1    (Intel Lab/FAB MCECS General Lab)" "fab5517bw2    (Intel Lab/FAB MCECS General Lab)" "fab5517clr1   (Intel Lab/FAB MCECS General Lab)" "fab6001bw1    (Tektronix Lab)" "fab8201bw1    (Doghaus)" "fabc8802bw1   (Linux Lab)" "fab25bw1      (Power Lab)" "eb325bw1      (MCECS General Lab, West)" "eb325bw2      (MCECS General Lab, East)" "eb325clr1     (MCECS General Lab, West)" "eb420bw1      (MCAE Lab)" "eb420clr1     (MCAE Lab)" ; do
         say ${nick} ${printer}
     done
+}
+
+# List all printer jobs.
+
+function jobsSubroutine {
+    for printer in "fab8201bw1" "fabc8802bw1" "fab6001bw1" "fab5517bw1" "fab5517bw2" "fab5517clr1" "fab25bw1" "eb325bw1" "eb325bw2" "eb325clr1" "eb420bw1" "eb420clr1" ; do
+        lpq -P "${printer}" > "${DIR}/jobs/${printer}.status"
+    done
+
+    FILES=${DIR}/jobs/*
+    say ${nick} "-----------------------------------------------"
+    for f in ${FILES} ; do
+        while read line ; do
+            say ${nick} "${line}"
+        done < ${f}
+    done
+
 }
 
 ################################################  Subroutines End  ################################################
@@ -148,6 +163,18 @@ elif has "${msg}" "^!print -l$" ||
      has "${msg}" "^lprbot: print list$" ||
      has "${msg}" "^lprbot: list$" ; then
     listSubroutine
+
+elif has "${msg}" "^!print -j$" ||
+     has "${msg}" "^!print --jobs$" ||
+     has "${msg}" "^!print jobs$" ||
+     has "${msg}" "^lprbot: jobs$" ; then
+    jobsSubroutine
+
+elif has "${msg}" "^!print -o$" ||
+     has "${msg}" "^!print --override$" ||
+     has "${msg}" "^!print override$" ||
+     has "${msg}" "^lprbot: jobs$" ; then
+    jobsSubroutine
 
 elif has "${msg}" "^!print " || has "${msg}" "^lprbot: print " ; then
     arg=$(echo ${msg} | sed -r 's/^!print //')                # cut out the leading part from ${msg}
