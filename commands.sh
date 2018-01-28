@@ -94,7 +94,7 @@ function printSubroutine {
 # This subroutine displays documentation for lprbot's functionalities.
 
 function helpSubroutine {
-    say ${chan} "usage: !print [-a | --all] [fab [eb]] [fab8802bw1 [eb325bw1 ...]] [-l | --list | list] [-j | --jobs | jobs] [source]"
+    say ${chan} "usage: !print [all] [fab | eb] [fab8802bw1 eb325bw1 ...] [list] [jobs] [source]"
 }
 
 # List all the printers.
@@ -152,29 +152,19 @@ elif has "${msg}" "^lprbot: source$" ||
 
 # Print script.
 
-elif has "${msg}" "^!print -a$" || has "${msg}" "^!print --all$" || has "${msg}" "^lprbot: print -a$" || has "${msg}" "^lprbot: print --all$" ; then
+elif has "${msg}" "^!print all$" || has "${msg}" "^lprbot: print all$" ; then
     printSubroutine
 
-elif has "${msg}" "^!print -l$" ||
-     has "${msg}" "^!print --list$" ||
-     has "${msg}" "^!print list$" ||
-     has "${msg}" "^lprbot: print -l$" ||
-     has "${msg}" "^lprbot: print --list$" ||
+elif has "${msg}" "^!print list$" ||
      has "${msg}" "^lprbot: print list$" ||
      has "${msg}" "^lprbot: list$" ; then
     listSubroutine
 
-elif has "${msg}" "^!print -j$" ||
-     has "${msg}" "^!print --jobs$" ||
-     has "${msg}" "^!print jobs$" ||
-     has "${msg}" "^lprbot: jobs$" ; then
+elif has "${msg}" "^!print jobs$" || has "${msg}" "^lprbot: jobs$" ; then
     jobsSubroutine
 
-elif has "${msg}" "^!print -o$" ||
-     has "${msg}" "^!print --override$" ||
-     has "${msg}" "^!print override$" ||
-     has "${msg}" "^lprbot: jobs$" ; then
-    jobsSubroutine
+elif has "${msg}" "^!print override" ; then
+    true
 
 elif has "${msg}" "^!print " || has "${msg}" "^lprbot: print " ; then
     arg=$(echo ${msg} | sed -r 's/^!print //')                # cut out the leading part from ${msg}
