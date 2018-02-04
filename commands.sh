@@ -140,7 +140,8 @@ if has "${msg}" "^!lprbot$" || has "${msg}" "^lprbot: help$" || has "${msg}" "^!
 elif has "${msg}" "^!alive(\?)?$" || has "${msg}" "^lprbot: alive(\?)?$" ; then
     str1='running! '
     str2=$(ps aux | grep ./lprbot | head -n 1 | awk '{ print "[%CPU "$3"]", "[%MEM "$4"]", "[START "$9"]", "[TIME "$10"]" }')
-    str="${str1}${str2}"
+    str3=" [TOT_SIZE $(du -sh | cut -f -1)]"
+    str="${str1}${str2}${str3}"
     say ${chan} "${str}"
 
 # Source.
